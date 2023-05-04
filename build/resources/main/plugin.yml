@@ -1,6 +1,5 @@
 name: SilkSpawners-OG
-version: '1.0'
+version: '1.1'
 main: me.sekalol15.SilkSpawnersOG.SilkSpawnersOG
 author: Sekalol15
 api-version: 1.18
-depend: []
