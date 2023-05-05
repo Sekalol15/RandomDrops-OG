@@ -11,7 +11,6 @@ public class SilkSpawnersOG extends JavaPlugin {
     @Override
     public void onEnable() {
         this.getServer().getPluginManager().registerEvents(new BlockEventListener(), this);
-        System.out.println("Ready!");
     }
 
 }
