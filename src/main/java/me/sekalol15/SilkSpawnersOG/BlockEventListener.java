@@ -46,8 +46,8 @@ public class BlockEventListener implements Listener {
             String lore = String.valueOf(newSpawnerState.getSpawnedType());
             TextComponent loreTranslate = Component.text(lore);
             newSpawner.lore(Arrays.asList(loreTranslate));
-
-            event.getPlayer().sendMessage(ChatColor.GRAY + "Spawner gotten");
+            //message for debugging
+            //event.getPlayer().sendMessage(ChatColor.GRAY + "Spawner gotten");
             event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), newSpawner);
         }
     }
