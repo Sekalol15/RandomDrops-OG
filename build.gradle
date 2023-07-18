@@ -1,12 +1,14 @@
 plugins {
 
-    id "java" // Tell Gradle that this is a Java project.
-    id "com.github.johnrengelman.shadow" version "7.1.2" // Import Shadow utility to package all libraries into the plugin's .jar file.
+    id 'java' // Tell gradle this is a java project.
+    id 'com.github.johnrengelman.shadow' version '7.1.2' // Import utility to package libraries into .jar file.
+    id 'eclipse'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.0' // Import eclipse plugin for IDE integration.
 
 }
 
 group = "me.sekalol15.SilkSpawnersOG" // Declare bundle identifier.
-version = "1.1" // Declare version number.
+version = '1.0'
 
 def apiVersion = "1.18.2" // Declare minecraft server target version.
 def targetJavaVersion = 17 // Declare java compatibility minimum.
@@ -20,9 +22,9 @@ processResources {
 
     inputs.properties props // Indicates to rerun if version changes.
 
-    filesMatching("plugin.yml") { // Pass build number and API version to plugin's YAML file.
+    filesMatching("plugin.yml") {
 
-        expand props // Automatically update .jar's internal version numbers.
+        expand props
 
     }
 
@@ -30,30 +32,21 @@ processResources {
 
 repositories {
 
-    mavenCentral() // Get built-in Maven Central Repository for managing Maven Repositories in Gradle..
-
-    maven { // Import Maven Repository.
-        url "https://repo.purpurmc.org/snapshots" // Get Purpur API from Purpur Maven Repository.
-    }
+    mavenCentral()
 
     maven {
-        url "https://repo.viaversion.com"
+
+        url "https://repo.purpurmc.org/snapshots" // Get purpur API from purpur maven repository.
+
     }
 
-    maven {
-        url "https://repo.dmulloy2.net/repository/public/"
-    }
-
-    maven {
-        url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
-    }
 }
 
 dependencies {
-    compileOnly 'org.spigotmc:spigot:1.18.2-R0.1-SNAPSHOT'
-    compileOnly "org.purpurmc.purpur:purpur-api:1.18.2-R0.1-SNAPSHOT" // Declare the Purpur API version to be packaged.
-    compileOnly "com.viaversion:viaversion-api:4.4.1"
-    compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "4.7.0"
+
+    compileOnly "org.purpurmc.purpur:purpur-api:1.18.2-R0.1-SNAPSHOT"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8" // Declare purpur API version to be packaged.
+
 }
 
 shadowJar {
@@ -66,20 +59,23 @@ jar.dependsOn shadowJar
 
 tasks.jar.configure {
 
-    classifier = "part"
+    archiveClassifier = "part"
 
 }
 
 tasks.shadowJar.configure {
 
-    classifier = null
+    archiveClassifier = null
 
 }
 
-compileJava { // Build Java code.
+tasks.withType(JavaCompile).configureEach {
 
-    options.compilerArgs += ["-parameters"] // Pass any parameters specified while executing Gradle wrapper as Java compiler arguments.
-    options.fork = true
-    options.forkOptions.executable = 'javac' // Define Java compiler executable.
+    options.compilerArgs += ["-parameters"]
+    options.encoding = 'UTF-8' // Override the system character set with a universal set.
+    options.fork = true // Enable compilation in a separate daemon process.
 
+}
+kotlin {
+    jvmToolchain(17)
 }
