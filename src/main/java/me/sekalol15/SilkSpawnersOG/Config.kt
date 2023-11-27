@@ -23,7 +23,6 @@ import java.io.File
             config.save(file)
         }
 
-
         fun getSpawnerDropChance(): Double {
             return config.get("spawnerDropChance") as Double
         }

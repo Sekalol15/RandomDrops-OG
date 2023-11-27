@@ -2,4 +2,4 @@ name: SilkSpawners-OG
 version: '${version}'
 main: me.sekalol15.SilkSpawnersOG.SilkSpawnersOG
 author: Sekalol15
-api-version: 1.18
+api-version: 1.19
