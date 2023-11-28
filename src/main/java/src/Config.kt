@@ -1,4 +1,4 @@
-package me.sekalol15.SilkSpawnersOG
+package src
 
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.configuration.file.YamlConfiguration
@@ -9,14 +9,14 @@ import java.io.File
         private lateinit var file: File
 
         fun load() {
-            file = File(SilkSpawnersOG.plugin.dataFolder, "config.yml")
+            file = File(`RandomDrops-OG`.plugin.dataFolder, "config.yml")
             if (!file.exists()) {
-                SilkSpawnersOG.plugin.saveDefaultConfig()
+                `RandomDrops-OG`.plugin.saveDefaultConfig()
             }
 
             config = YamlConfiguration.loadConfiguration(file)
 
-            this.save()
+            save()
         }
 
         private fun save() {
@@ -25,5 +25,8 @@ import java.io.File
 
         fun getSpawnerDropChance(): Double {
             return config.get("spawnerDropChance") as Double
+        }
+        fun getDragonEggDropChance(): Double{
+            return config.get("dragonEggDropChance") as Double
         }
     }

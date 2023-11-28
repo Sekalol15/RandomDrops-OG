@@ -1,11 +1,13 @@
-package me.sekalol15.SilkSpawnersOG
+package src
 
+import io.papermc.paper.event.block.DragonEggFormEvent
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.TextComponent
 import org.bukkit.Material
 import org.bukkit.block.CreatureSpawner
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockPlaceEvent
@@ -14,10 +16,22 @@ import org.bukkit.inventory.meta.BlockStateMeta
 import java.util.*
 import kotlin.random.Random
 class Listeners : Listener {
+    //dragon egg drop chance
+    @EventHandler
+    fun onDragonEggDrop(event: DragonEggFormEvent) {
+        val dragonEggDropChance = Config.getDragonEggDropChance()
+        // 10% chance
+        if (Random.nextDouble() <= dragonEggDropChance) {
+            event.isCancelled = false
+        }
+        else {
+            event.isCancelled = true
+        }
+    }
     @EventHandler
     fun onBlockBreakEvent(event: BlockBreakEvent) {
         if (event.block.type != Material.SPAWNER) return
-        var spawnerDropChance = Config.getSpawnerDropChance()
+        val spawnerDropChance = Config.getSpawnerDropChance()
 
         // check for silk touch and random chance.
         if (event.player.inventory.itemInMainHand.containsEnchantment(Enchantment.SILK_TOUCH) && Random.nextDouble() <= spawnerDropChance) {

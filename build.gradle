@@ -7,8 +7,8 @@ plugins {
 
 }
 
-group = "me.sekalol15.SilkSpawnersOG" // Declare bundle identifier.
-version = '2.0'
+group = "net.trueog.randomdrops-og" // Declare bundle identifier.
+version = '2.1'
 
 def apiVersion = "1.19.4" // Declare minecraft server target version.
 def targetJavaVersion = 17 // Declare java compatibility minimum.
